@@ -1,4 +1,13 @@
+import { useEffect } from 'react';
+
 export const List = ({ langs }) => {
+
+  useEffect(() => {
+    return () => {
+      
+    }
+  })
+
   return (
     <div>
       {
