@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from "./conponents/button";
 import styled from 'styled-components';
 import { TabBodyContainer } from "./conponents/tab-body-container";
+import { FormModal } from "./FormModal";
 
 const Label = styled.label`
   display: flex;
@@ -26,10 +27,11 @@ const FormButton = styled(Button)`
 
 export const Form = ({ onAddLang }) => {
   const [text, setText] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const submitForm = (event) => {
     event.preventDefault();
-    onAddLang(text);
+    setShowModal(true);
   }
 
   return (
@@ -37,12 +39,19 @@ export const Form = ({ onAddLang }) => {
       <form onSubmit={submitForm}>
         <div>
           <Label>言語</Label>
-          <Input type="text" value={text} onChange={(e) => setText(e.target.value)}/>
+          <Input type="text" value={text} onChange={(e) => setText(e.target.value)} autoFocus/>
         </div>
         <ButtonContainer>
           <FormButton>追加</FormButton>
         </ButtonContainer>
       </form>
+      {
+        showModal &&
+        <FormModal
+          confirm={() => onAddLang(text)}
+          cancel={() => setShowModal(false)}
+        />
+      }
     </TabBodyContainer>
   )
 }
